@@ -63,7 +63,7 @@ export default function App() {
   });
   const [chartData, setChartData] = useState(Array(20).fill(0));
   
-  const logsEndRef = useRef(null);
+  const logsTopRef = useRef(null);
 
   // --- SIMULATION ENGINE ---
   useEffect(() => {
@@ -129,11 +129,11 @@ export default function App() {
 
 
   // Auto-scroll terminal
-  const scrollToBottom = () => {
-    logsEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToTop = () => {
+    logsTopRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(() => {
-    scrollToBottom();
+    scrollToTop();
   }, [requests]);
 
   // --- RENDER HELPERS ---
@@ -321,7 +321,8 @@ export default function App() {
                     <div className="col-span-1 text-right">LAT(ms)</div>
                   </div>
                   
-                  <div className="flex flex-col-reverse">
+                  <div className="flex flex-col">
+                    <div ref={logsTopRef} />
                     {requests.map((req, i) => (
                       <div 
                         key={req.id} 
@@ -349,7 +350,6 @@ export default function App() {
                         </div>
                       </div>
                     ))}
-                    <div ref={logsEndRef} />
                   </div>
                 </div>
               )}
